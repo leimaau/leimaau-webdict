@@ -1,0 +1,18 @@
+a {
+	text-decoration: none;
+}
+
+#outputArea {
+	border-collapse: collapse;
+	display: table;
+}
+
+#outputArea > span {
+	display: table-row;
+}
+
+#outputArea > span > span {
+	border: 1px solid;
+	display: table-cell;
+	padding: 0.2em 0.4em;
+}

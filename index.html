@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leimaau’s Webdict</title>
+  <script src="index.js"></script>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+  <h1 lang="en-HK">Leimaau’s Webdict</h1>
+  <form onsubmit="handleSubmit(valueInput.value, this.queryType.value); return false">
+    <input id="valueInput" type="text"/>
+    <input type="radio" id="char" name="queryType" value="char"><label for="char">單字</label>
+    <input type="radio" id="jyutping" name="queryType" value="jyutping"><label for="jyutping">粵拼（無需聲調）</label>
+    <input type="submit" value="查詢"/>
+    <output id="outputArea"></output>
+  </form>
+</body>
+</html>
