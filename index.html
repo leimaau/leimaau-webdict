@@ -11,7 +11,8 @@
   <h1 lang="en-HK">Leimaau’s Webdict</h1>
   <form onsubmit="handleSubmit(valueInput.value, this.queryType.value); return false">
     <input id="valueInput" type="text"/>
-    <input type="radio" id="char" name="queryType" value="char"><label for="char">單字</label>
+    <input type="radio" id="char" name="queryType" value="char"><label for="char">單字（繁体）</label>
+    <input type="radio" id="char_simp" name="queryType" value="char_simp"><label for="char_simp">單字（簡體）</label>
     <input type="radio" id="jyutping" name="queryType" value="jyutping"><label for="jyutping">粵拼（無需聲調）</label>
     <input type="submit" value="查詢"/>
     <output id="outputArea"></output>
