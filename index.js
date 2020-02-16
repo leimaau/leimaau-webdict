@@ -29,15 +29,15 @@ async function loadDict(url, d_char, d_char_simp, d_jyutping, d_jyut6ping3) {
 }
 
 const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {} , d_jyut6ping3_1994 = {}
-	, loadDict1994 = async () => loadDict('data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994, d_jyut6ping3_1994)
+	, loadDict1994 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994, d_jyut6ping3_1994)
 	, d_char1997 = {} , d_char_simp1997 = {} , d_jyutping1997 = {} , d_jyut6ping3_1997 = {}
-	, loadDict1997 = async () => loadDict('data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997, d_jyut6ping3_1997)
+	, loadDict1997 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997, d_jyut6ping3_1997)
 	, d_char1998 = {} , d_char_simp1998 = {} , d_jyutping1998 = {} , d_jyut6ping3_1998 = {}
-	, loadDict1998 = async () => loadDict('data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998, d_jyut6ping3_1998)
+	, loadDict1998 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998, d_jyut6ping3_1998)
 	, d_char2002 = {} , d_char_simp2002 = {} , d_jyutping2002 = {} , d_jyut6ping3_2002 = {}
-	, loadDict2002 = async () => loadDict('data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
+	, loadDict2002 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
 	, d_char2008 = {} , d_char_simp2008 = {} , d_jyutping2008 = {} , d_jyut6ping3_2008 = {}
-	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
+	, loadDict2008 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
 
 // 功能：將 csv 中的一行變為格式化的 HTML
 function formatLine(year, line) {
