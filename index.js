@@ -6,7 +6,7 @@
 // 獲取數據後，按行分開
 // 將 char 作為鍵、line 作為值存入 d_char
 // 將 jyutping 作為鍵、line 作為值存入 d_jyutping
-async function loadDict(url, d_char, d_char_simp, d_jyutping) {
+async function loadDict(url, d_char, d_char_simp, d_jyutping, d_jyut6ping3) {
 	const response = await fetch(url)
 		, txt = await response.text()
 		, lines = txt.split('\n');
@@ -14,27 +14,30 @@ async function loadDict(url, d_char, d_char_simp, d_jyutping) {
 		if (!(line.length == 0 || line.startsWith('ID') || line.startsWith('#'))) {
 			const char = line.split('\t')[1]
 				, char_simp = line.split('\t')[2]
-				, jyutping = line.split('\t')[5].slice(0,-1);
+				, jyutping = line.split('\t')[5].slice(0,-1)
+				, jyut6ping3 = line.split('\t')[5];
 			const res_char = d_char[char]
 				, res_char_simp = d_char_simp[char_simp]
-				, res_jyutping = d_jyutping[jyutping];
+				, res_jyutping = d_jyutping[jyutping]
+				, res_jyut6ping3 = d_jyut6ping3[jyut6ping3];
 			if (!res_char) { d_char[char] = [line]; } else { d_char[char].push(line); }
 			if (!res_char_simp) { d_char_simp[char_simp] = [line]; } else { d_char_simp[char_simp].push(line); }
 			if (!res_jyutping) { d_jyutping[jyutping] = [line]; } else { d_jyutping[jyutping].push(line); }
+			if (!res_jyut6ping3) { d_jyut6ping3[jyut6ping3] = [line]; } else { d_jyut6ping3[jyut6ping3].push(line); }
 		}
 	}
 }
 
-const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {}
-	, loadDict1994 = async () => loadDict('data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994)
-	, d_char1997 = {} , d_char_simp1997 = {} , d_jyutping1997 = {}
-	, loadDict1997 = async () => loadDict('data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997)
-	, d_char1998 = {} , d_char_simp1998 = {} , d_jyutping1998 = {}
-	, loadDict1998 = async () => loadDict('data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998)
-	, d_char2002 = {} , d_char_simp2002 = {} , d_jyutping2002 = {}
-	, loadDict2002 = async () => loadDict('data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002)
-	, d_char2008 = {} , d_char_simp2008 = {} , d_jyutping2008 = {}
-	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008);
+const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {} , d_jyut6ping3_1994 = {}
+	, loadDict1994 = async () => loadDict('data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994, d_jyut6ping3_1994)
+	, d_char1997 = {} , d_char_simp1997 = {} , d_jyutping1997 = {} , d_jyut6ping3_1997 = {}
+	, loadDict1997 = async () => loadDict('data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997, d_jyut6ping3_1997)
+	, d_char1998 = {} , d_char_simp1998 = {} , d_jyutping1998 = {} , d_jyut6ping3_1998 = {}
+	, loadDict1998 = async () => loadDict('data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998, d_jyut6ping3_1998)
+	, d_char2002 = {} , d_char_simp2002 = {} , d_jyutping2002 = {} , d_jyut6ping3_2002 = {}
+	, loadDict2002 = async () => loadDict('data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
+	, d_char2008 = {} , d_char_simp2008 = {} , d_jyutping2008 = {} , d_jyut6ping3_2008 = {}
+	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
 
 // 功能：將 csv 中的一行變為格式化的 HTML
 function formatLine(year, line) {
@@ -99,6 +102,8 @@ function handleSubmit(val, queryType) {
 		dispatchSubmit(val, d_char_simp1994, d_char_simp1997, d_char_simp1998, d_char_simp2002, d_char_simp2008);
 	else if (queryType == 'jyutping')
 		dispatchSubmit(val, d_jyutping1994, d_jyutping1997, d_jyutping1998, d_jyutping2002, d_jyutping2008);
+	else if (queryType == 'jyut6ping3')
+		dispatchSubmit(val, d_jyut6ping3_1994, d_jyut6ping3_1997, d_jyut6ping3_1998, d_jyut6ping3_2002, d_jyut6ping3_2008);
 }
 
 // 啓動加載
