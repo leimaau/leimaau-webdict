@@ -6,17 +6,31 @@
   <title>Leimaau’s Webdict</title>
   <script src="index.js"></script>
   <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <h1 lang="en-HK">Leimaau’s Webdict</h1>
-  <form onsubmit="handleSubmit(valueInput.value, this.queryType.value); return false">
-    <input id="valueInput" type="text"/>
-    <input type="radio" id="char" name="queryType" value="char"><label for="char">單字（繁体）</label>
-    <input type="radio" id="char_simp" name="queryType" value="char_simp"><label for="char_simp">單字（簡體）</label>
-    <input type="radio" id="jyutping" name="queryType" value="jyutping"><label for="jyutping">粵拼（無需聲調）</label>
-    <input type="radio" id="jyut6ping3" name="queryType" value="jyut6ping3"><label for="jyut6ping3">粵拼（需聲調）</label>
-    <input type="submit" value="查詢"/>
-    <output id="outputArea"></output>
+<div class="container">
+  <h2 lang="en-HK">Leimaau’s Webdict</h2>
+  <form class="form-horizontal" role="form" onsubmit="handleSubmit(valueInput.value, this.queryType.value); return false">
+	<div class="input-group mb-3 col-lg-4">
+		<input id="valueInput" type="text" class="form-control" placeholder="Search">
+		<div class="input-group-append">
+			<button class="btn btn-success" type="submit">查詢</button>  
+		</div>
+	</div>
+    <div class="form-group">
+		<label for="char" class="radio-inline"><input type="radio" id="char" name="queryType" value="char">單字（繁体）</label>
+		<label for="char_simp" class="radio-inline"><input type="radio" id="char_simp" name="queryType" value="char_simp">單字（簡體）</label>
+		<label for="jyutping" class="radio-inline"><input type="radio" id="jyutping" name="queryType" value="jyutping">粵拼（無需聲調）</label>
+		<label for="jyut6ping3" class="radio-inline"><input type="radio" id="jyut6ping3" name="queryType" value="jyut6ping3">粵拼（需聲調）</label>
+	</div>
+    <div class="form-group">
+		<output id="outputArea"></output>
+	</div>
   </form>
+</div>
 </body>
 </html>
