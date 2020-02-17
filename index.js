@@ -42,6 +42,31 @@ const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {} , d_jyut6ping
 // 功能：將 csv 中的一行變為格式化的 HTML
 function formatLine(year, line) {
 	const [ID, 繁體, 簡體, IPA_S, IPA_T, 粵拼, 來源, 詞例, leimaau附註] = line.split('\t');
+	const pages = 來源.replace('P','').replace('（單字音表）','').split('，');
+	
+	if (year=='1994') 
+		var bookname = '1994年謝建猷《南寧白話同音字彙》'
+		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/1994zh/zh'
+	else if (year=='1997')
+		var bookname = '1997年楊煥典《南寧話音檔》'
+		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/1997yd/yd'
+	else if (year=='1998')
+		var bookname = '1998年楊煥典主編《廣西通誌·漢語方言誌》'
+		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/1998dfz/dfz'
+	else if (year=='2002')
+		var bookname = '2002年楊煥典《現代漢語方言音庫(字庫)》'
+		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/2002zk/zk'
+	else if (year=='2008')
+		var bookname = '2008年林亦《廣西南寧白話研究》'
+		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/2008yj/yj';
+	
+	var str="", addr="";
+	for (var i=0;i<pages.length;i++){
+		addr = linkaddr+pages[i]+'.png';
+		str += 'P'+'<a href="'+addr+'" target="_Blank">'+pages[i]+'</a>'+'，';
+	};
+	str = str.replace(/，$/gi,"");
+	
 	return `<span>
 <span>${year}</span>
 <span>${ID}</span>
@@ -50,7 +75,7 @@ function formatLine(year, line) {
 <span>${IPA_S}</span>
 <span>${IPA_T}</span>
 <span><a href="javascript:handleSubmit('${粵拼.slice(0,-1)}', 'jyutping')">${粵拼.slice(0,-1)}</a>${粵拼.slice(-1)}</span>
-<span>${來源}</span>
+<span>${bookname}`+str+`</span>
 <span>${詞例}</span>
 <span>${leimaau附註}</span>
 </span>
