@@ -57,7 +57,7 @@ function formatLine(year, line) {
 		var bookname = '2002年楊煥典《現代漢語方言音庫(字庫)》'
 		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/2002zk/zk'
 	else if (year=='2008')
-		var bookname = '2008年林亦《廣西南寧白話研究》'
+		var bookname = '2008年林亦、覃鳳餘《廣西南寧白話研究》'
 		, linkaddr = 'https://gitee.com/leimaau/data-store/raw/master/2008yj/yj';
 	
 	var str="", addr="";
@@ -68,14 +68,14 @@ function formatLine(year, line) {
 	str = str.replace(/，$/gi,"");
 	
 	return `<span>
-<span>${year}</span>
+<span data-toggle="tooltip" title="${bookname}">${year}</span>
 <span>${ID}</span>
 <span><a href="javascript:handleSubmit('${繁體}', 'char')">${繁體}</a></span>
 <span><a href="javascript:handleSubmit('${簡體}', 'char_simp')">${簡體}</a></span>
 <span>${IPA_S}</span>
 <span>${IPA_T}</span>
 <span><a href="javascript:handleSubmit('${粵拼.slice(0,-1)}', 'jyutping')">${粵拼.slice(0,-1)}</a>${粵拼.slice(-1)}</span>
-<span>${bookname}`+str+`</span>
+<span>`+str+`</span>
 <span>${詞例}</span>
 <span>${leimaau附註}</span>
 </span>
@@ -91,7 +91,7 @@ function dispatchSubmit(val, d1994, d1997, d1998, d2002, d2008) {
 <span>原文IPA</span>
 <span>統一IPA</span>
 <span>粵拼</span>
-<span>來源</span>
+<span>葉碼</span>
 <span>詞例</span>
 <span>leimaau附註</span>
 </span>
