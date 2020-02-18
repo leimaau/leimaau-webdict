@@ -17,3 +17,11 @@ a {
 	padding: 0.2em 0.4em;
 	white-space: nowrap;
 }
+
+#outputArea > span > span > p {
+	margin-bottom: 0rem;
+    width: 150px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

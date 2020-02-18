@@ -1,7 +1,7 @@
 'use strict';
 
 // 功能：從 url 獲取數據，數據的格式為 csv 文件，以 TAB 分隔，沒有引號
-// 數據包含以下內容：[ID, 繁體, 簡體, IPA_S, IPA_T, 粵拼, 來源, 詞例, leimaau附註]
+// 數據包含以下內容：[ID, TRAD, SIMP, IPA_S, IPA_T, JYUTPING, SOUR, EXPL, NOTE]
 // 作為參數的 d_char、d_jyutping 是空的 dict
 // 獲取數據後，按行分開
 // 將 char 作為鍵、line 作為值存入 d_char
@@ -29,20 +29,20 @@ async function loadDict(url, d_char, d_char_simp, d_jyutping, d_jyut6ping3) {
 }
 
 const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {} , d_jyut6ping3_1994 = {}
-	, loadDict1994 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994, d_jyut6ping3_1994)
+	, loadDict1994 = async () => loadDict('data/1994年謝建猷《南寧白話同音字彙》勘誤.csv', d_char1994, d_char_simp1994, d_jyutping1994, d_jyut6ping3_1994)
 	, d_char1997 = {} , d_char_simp1997 = {} , d_jyutping1997 = {} , d_jyut6ping3_1997 = {}
-	, loadDict1997 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997, d_jyut6ping3_1997)
+	, loadDict1997 = async () => loadDict('data/1997年楊煥典《南寧話音檔》（原文）勘誤.csv', d_char1997, d_char_simp1997, d_jyutping1997, d_jyut6ping3_1997)
 	, d_char1998 = {} , d_char_simp1998 = {} , d_jyutping1998 = {} , d_jyut6ping3_1998 = {}
-	, loadDict1998 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998, d_jyut6ping3_1998)
+	, loadDict1998 = async () => loadDict('data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧白話）.csv', d_char1998, d_char_simp1998, d_jyutping1998, d_jyut6ping3_1998)
 	, d_char2002 = {} , d_char_simp2002 = {} , d_jyutping2002 = {} , d_jyut6ping3_2002 = {}
-	, loadDict2002 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
+	, loadDict2002 = async () => loadDict('data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
 	, d_char2008 = {} , d_char_simp2008 = {} , d_jyutping2008 = {} , d_jyut6ping3_2008 = {}
-	, loadDict2008 = async () => loadDict('https://raw.githubusercontent.com/leimaau/leimaau-webdict/master/data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
+	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
 
 // 功能：將 csv 中的一行變為格式化的 HTML
 function formatLine(year, line) {
-	const [ID, 繁體, 簡體, IPA_S, IPA_T, 粵拼, 來源, 詞例, leimaau附註] = line.split('\t');
-	const pages = 來源.replace('P','').replace('（單字音表）','').split('，');
+	const [ID, TRAD, SIMP, IPA_S, IPA_T, JYUTPING, SOUR, EXPL, NOTE] = line.split('\t');
+	const pages = SOUR.replace('P','').replace('（單字音表）','').split('，');
 	
 	if (year=='1994') 
 		var bookname = '1994年謝建猷《南寧白話同音字彙》'
@@ -69,15 +69,15 @@ function formatLine(year, line) {
 	
 	return `<span>
 <span data-toggle="tooltip" title="${bookname}">${year}</span>
-<span>${ID}</span>
-<span><a href="javascript:handleSubmit('${繁體}', 'char')">${繁體}</a></span>
-<span><a href="javascript:handleSubmit('${簡體}', 'char_simp')">${簡體}</a></span>
+<!--<span>${ID}</span>-->
+<span><a href="javascript:handleSubmit('${TRAD}', 'char')">${TRAD}</a></span>
+<span><a href="javascript:handleSubmit('${SIMP}', 'char_simp')">${SIMP}</a></span>
 <span>${IPA_S}</span>
 <span>${IPA_T}</span>
-<span><a href="javascript:handleSubmit('${粵拼.slice(0,-1)}', 'jyutping')">${粵拼.slice(0,-1)}</a>${粵拼.slice(-1)}</span>
-<span>`+str+`</span>
-<span>${詞例}</span>
-<span>${leimaau附註}</span>
+<span><a href="javascript:handleSubmit('${JYUTPING.slice(0,-1)}', 'jyutping')">${JYUTPING.slice(0,-1)}</a>${JYUTPING.slice(-1)}</span>
+<span>${bookname}`+str+`</span>
+<span><p data-toggle="tooltip" title="${EXPL}">${EXPL}</p></span>
+<span><p data-toggle="tooltip" title="${NOTE}">${NOTE}</p></span>
 </span>
 `;
 }
@@ -85,13 +85,13 @@ function formatLine(year, line) {
 function dispatchSubmit(val, d1994, d1997, d1998, d2002, d2008) {
 	const res = [`<span>
 <span>資料</span>
-<span>ID</span>
+<!--<span>ID</span>-->
 <span>繁體</span>
 <span>簡體</span>
 <span>原文IPA</span>
 <span>統一IPA</span>
 <span>粵拼</span>
-<span>葉碼</span>
+<span>來源</span>
 <span>詞例</span>
 <span>leimaau附註</span>
 </span>
