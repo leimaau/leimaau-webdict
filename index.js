@@ -112,35 +112,50 @@ const res2 = [`<span>南寧平話</span><span>
 <span>leimaau附註</span>
 </span>
 `];
+
+	const pie_data = {}, pie_data2 = {};
 	const selval = $('.selectpicker').selectpicker('val');
 	const results1994 = d1994[val];
 	if (results1994 && selval.indexOf('1994') != '-1')
-		for (const line of results1994)
+		for (const line of results1994) {
 			res.push(formatLine('1994', line));
+			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1994'); } else { pie_data[line.split('\t')[5]].push('1994'); };
+		}
 	const results1997 = d1997[val];
 	if (results1997 && selval.indexOf('1997') != '-1')
-		for (const line of results1997)
+		for (const line of results1997) {
 			res.push(formatLine('1997', line));
+			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1997'); } else { pie_data[line.split('\t')[5]].push('1997'); };
+		}
 	const results1998 = d1998[val];
 	if (results1998 && selval.indexOf('1998') != '-1')
-		for (const line of results1998)
+		for (const line of results1998) {
 			res.push(formatLine('1998', line));
+			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1998'); } else { pie_data[line.split('\t')[5]].push('1998'); };
+		}
 	const results2002 = d2002[val];
 	if (results2002 && selval.indexOf('2002') != '-1')
-		for (const line of results2002)
+		for (const line of results2002) {
 			res.push(formatLine('2002', line));
+			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('2002'); } else { pie_data[line.split('\t')[5]].push('2002'); };
+		}
 	const results2008 = d2008[val];
 	if (results2008 && selval.indexOf('2008') != '-1')
-		for (const line of results2008)
+		for (const line of results2008) {
 			res.push(formatLine('2008', line));
+			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('2008'); } else { pie_data[line.split('\t')[5]].push('2008'); };
+		}
 	outputArea.innerHTML = res.join('\n');
 	
 	const results1998p = d1998p[val];
 	if (results1998p && selval.indexOf('1998p') != '-1')
-		for (const line of results1998p)
+		for (const line of results1998p) {
 			res2.push(formatLine('1998', line));
+			if (typeof(pie_data2[line.split('\t')[5]]) == "undefined") { pie_data2[line.split('\t')[5]] = []; pie_data2[line.split('\t')[5]].push('2008'); } else { pie_data2[line.split('\t')[5]].push('2008'); };
+		}
 	outputArea2.innerHTML = res2.join('\n');
-	
+	pieDiv(pie_data,'container', val);
+	pieDiv(pie_data2,'container2', val);
 	$(() => { $("[data-toggle='tooltip']").tooltip(); })
 }
 
@@ -153,6 +168,55 @@ function handleSubmit(val, queryType) {
 		dispatchSubmit(val, d_jyutping1994, d_jyutping1997, d_jyutping1998, d_jyutping2002, d_jyutping2008, d_jyutping1998p);
 	else if (queryType == 'jyut6ping3')
 		dispatchSubmit(val, d_jyut6ping3_1994, d_jyut6ping3_1997, d_jyut6ping3_1998, d_jyut6ping3_2002, d_jyut6ping3_2008, d_jyut6ping3_1998p);
+}
+
+function pieDiv(pie_data, div_id, val){
+	var show_data = [];
+	for( var i in pie_data ){ pie_data[i] = new Set(pie_data[i]) };
+	for( var i in pie_data ){ show_data.push({name: i, y: pie_data[i].size,x: Array.from(pie_data[i]).toString()}) };
+	
+	var chart = {
+	   plotBackgroundColor: null,
+	   plotBorderWidth: null,
+	   plotShadow: false
+	};
+	var title = {
+	  text: div_id == 'container' ? '南寧白話' + '【' + val + '】' : '南寧平話' + '【' + val + '】'
+	};      
+	var tooltip = {
+	  headerFormat: '{series.name}<br/>',
+	  pointFormat: '<b>{point.x}</b>'
+	};
+	var plotOptions = {
+	  pie: {
+		 allowPointSelect: true,
+		 cursor: 'pointer',
+		 dataLabels: {
+			enabled: true,
+			//format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			style: {
+			   color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+			},
+			formatter: function() {
+				return this.key + '<br/><span style="color: ' + this.point.color + '"> 資料數：' + this.y + '，佔比：' + this.percentage + '%</span>';
+			}
+		 },
+		 showInLegend: true
+	  }
+	};
+	var series= [{
+	  type: 'pie',
+	  name: '資料',
+	  data: show_data
+	}];
+	var json = {};
+	json.credits = { enabled: false };
+	json.chart = chart; 
+	json.title = title;     
+	json.tooltip = tooltip;  
+	json.series = series;
+	json.plotOptions = plotOptions;
+	$('#'+div_id).highcharts(json);
 }
 
 // 啓動加載
