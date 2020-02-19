@@ -37,7 +37,9 @@ const d_char1994 = {} , d_char_simp1994 = {} , d_jyutping1994 = {} , d_jyut6ping
 	, d_char2002 = {} , d_char_simp2002 = {} , d_jyutping2002 = {} , d_jyut6ping3_2002 = {}
 	, loadDict2002 = async () => loadDict('data/2002年楊煥典《現代漢語方言音庫字庫》.csv', d_char2002, d_char_simp2002, d_jyutping2002, d_jyut6ping3_2002)
 	, d_char2008 = {} , d_char_simp2008 = {} , d_jyutping2008 = {} , d_jyut6ping3_2008 = {}
-	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008);
+	, loadDict2008 = async () => loadDict('data/2008年林亦《廣西南寧白話研究》勘誤.csv', d_char2008, d_char_simp2008, d_jyutping2008, d_jyut6ping3_2008)
+	, d_char1998p = {} , d_char_simp1998p = {} , d_jyutping1998p = {} , d_jyut6ping3_1998p = {}
+	, loadDict1998p = async () => loadDict('data/1998年《廣西通誌（漢語方言誌）》勘誤（南寧亭子平話）.csv', d_char1998p, d_char_simp1998p, d_jyutping1998p, d_jyut6ping3_1998p);
 
 // 功能：將 csv 中的一行變為格式化的 HTML
 function formatLine(year, line) {
@@ -82,8 +84,8 @@ function formatLine(year, line) {
 `;
 }
 
-function dispatchSubmit(val, d1994, d1997, d1998, d2002, d2008) {
-	const res = [`<span>
+function dispatchSubmit(val, d1994, d1997, d1998, d2002, d2008, d1998p) {
+	const res = [`<span>南寧白話</span><span>
 <span>資料</span>
 <!--<span>ID</span>-->
 <span>繁體</span>
@@ -97,41 +99,63 @@ function dispatchSubmit(val, d1994, d1997, d1998, d2002, d2008) {
 </span>
 `];
 
+const res2 = [`<span>南寧平話</span><span>
+<span>資料</span>
+<!--<span>ID</span>-->
+<span>繁體</span>
+<span>簡體</span>
+<span>原文IPA</span>
+<span>統一IPA</span>
+<span>粵拼</span>
+<span>來源</span>
+<span>詞例</span>
+<span>leimaau附註</span>
+</span>
+`];
+	const selval = $('.selectpicker').selectpicker('val');
 	const results1994 = d1994[val];
-	if (results1994)
+	if (results1994 && selval.indexOf('1994') != '-1')
 		for (const line of results1994)
 			res.push(formatLine('1994', line));
 	const results1997 = d1997[val];
-	if (results1997)
+	if (results1997 && selval.indexOf('1997') != '-1')
 		for (const line of results1997)
 			res.push(formatLine('1997', line));
 	const results1998 = d1998[val];
-	if (results1998)
+	if (results1998 && selval.indexOf('1998') != '-1')
 		for (const line of results1998)
 			res.push(formatLine('1998', line));
 	const results2002 = d2002[val];
-	if (results2002)
+	if (results2002 && selval.indexOf('2002') != '-1')
 		for (const line of results2002)
 			res.push(formatLine('2002', line));
 	const results2008 = d2008[val];
-	if (results2008)
+	if (results2008 && selval.indexOf('2008') != '-1')
 		for (const line of results2008)
 			res.push(formatLine('2008', line));
 	outputArea.innerHTML = res.join('\n');
+	
+	const results1998p = d1998p[val];
+	if (results1998p && selval.indexOf('1998p') != '-1')
+		for (const line of results1998p)
+			res2.push(formatLine('1998', line));
+	outputArea2.innerHTML = res2.join('\n');
+	
+	$(() => { $("[data-toggle='tooltip']").tooltip(); })
 }
 
 function handleSubmit(val, queryType) {
 	if (queryType == 'char')
-		dispatchSubmit(val, d_char1994, d_char1997, d_char1998, d_char2002, d_char2008);
+		dispatchSubmit(val, d_char1994, d_char1997, d_char1998, d_char2002, d_char2008, d_char1998p);
 	else if (queryType == 'char_simp')
-		dispatchSubmit(val, d_char_simp1994, d_char_simp1997, d_char_simp1998, d_char_simp2002, d_char_simp2008);
+		dispatchSubmit(val, d_char_simp1994, d_char_simp1997, d_char_simp1998, d_char_simp2002, d_char_simp2008, d_char_simp1998p);
 	else if (queryType == 'jyutping')
-		dispatchSubmit(val, d_jyutping1994, d_jyutping1997, d_jyutping1998, d_jyutping2002, d_jyutping2008);
+		dispatchSubmit(val, d_jyutping1994, d_jyutping1997, d_jyutping1998, d_jyutping2002, d_jyutping2008, d_jyutping1998p);
 	else if (queryType == 'jyut6ping3')
-		dispatchSubmit(val, d_jyut6ping3_1994, d_jyut6ping3_1997, d_jyut6ping3_1998, d_jyut6ping3_2002, d_jyut6ping3_2008);
+		dispatchSubmit(val, d_jyut6ping3_1994, d_jyut6ping3_1997, d_jyut6ping3_1998, d_jyut6ping3_2002, d_jyut6ping3_2008, d_jyut6ping3_1998p);
 }
 
 // 啓動加載
 (async () => {
-	await Promise.all([loadDict1994(), loadDict1997(), loadDict1998(), loadDict2002(), loadDict2008()]);
+	await Promise.all([loadDict1994(), loadDict1997(), loadDict1998(), loadDict2002(), loadDict2008(), loadDict1998p()]);
 })()

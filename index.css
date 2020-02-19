@@ -2,26 +2,37 @@ a {
 	text-decoration: none;
 }
 
-#outputArea {
+#outputArea, #outputArea2 {
 	border-collapse: collapse;
 	display: table;
+	width:100%;
+	padding: inherit;
 }
 
-#outputArea > span {
+#outputArea > span, #outputArea2 > span {
 	display: table-row;
 }
 
-#outputArea > span > span {
+#outputArea > span > span, #outputArea2 > span > span {
 	border: 1px solid;
 	display: table-cell;
 	padding: 0.2em 0.4em;
 	white-space: nowrap;
 }
 
-#outputArea > span > span > p {
+#outputArea > span > span > p, #outputArea2 > span > span > p {
 	margin-bottom: 0rem;
     width: 150px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.out-div, .out-div2 {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.sel-data {
+	margin-bottom: 20px;
 }
