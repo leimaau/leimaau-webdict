@@ -30,7 +30,7 @@ a {
 
 .out-div, .out-div2 {
 	overflow-x: auto;
-	overflow-y: hidden;
+	overflow-y: auto;
 }
 
 .sel-data {

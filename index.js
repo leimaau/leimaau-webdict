@@ -70,7 +70,7 @@ function formatLine(year, line) {
 	str = str.replace(/，$/gi,"");
 	
 	return `<span>
-<span data-toggle="tooltip" title="${bookname}">${year}</span>
+<span>${year}</span>
 <!--<span>${ID}</span>-->
 <span><a href="javascript:handleSubmit('${TRAD}', 'char')">${TRAD}</a></span>
 <span><a href="javascript:handleSubmit('${SIMP}', 'char_simp')">${SIMP}</a></span>
