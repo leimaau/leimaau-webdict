@@ -113,8 +113,8 @@ const res2 = [`<span>南寧平話</span><span>
 </span>
 `];
 
-	const pie_data = {}, pie_data2 = {};
-	const selval = $('.selectpicker').selectpicker('val');
+	const pie_data = {}, pie_data2 = {};  // { 粵拼 -> [多份數據年份] }
+	const selval = $('.selectpicker').selectpicker('val'); // 複選下拉框的 value 字符串
 	const results1994 = d1994[val];
 	if (results1994 && selval.indexOf('1994') != '-1')
 		for (const line of results1994) {
@@ -187,10 +187,10 @@ function pieDiv(pie_data, div_id, val){
 	   plotShadow: false
 	};
 	var title = {
-	  text: div_id == 'container' ? '南寧白話' + '【' + val + '】' : '南寧平話' + '【' + val + '】'
+	  text: div_id == 'container' ? '南寧白話【' + val + '】' : '南寧平話【' + val + '】'
 	};      
 	var tooltip = {
-	  headerFormat: '{series.name}'+'('+'{point.y}'+')'+'<br/>',
+	  headerFormat: '{series.name}({point.y})<br/>',
 	  pointFormat: '<b>{point.x}</b>'
 	};
 	var plotOptions = {

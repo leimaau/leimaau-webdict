@@ -36,3 +36,9 @@ a {
 .sel-data {
 	margin-bottom: 20px;
 }
+
+#container, #container2 {
+	width: 550px;
+	height: 400px;
+	margin: 0 auto;
+}
