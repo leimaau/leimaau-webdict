@@ -119,31 +119,36 @@ const res2 = [`<span>南寧平話</span><span>
 	if (results1994 && selval.indexOf('1994') != '-1')
 		for (const line of results1994) {
 			res.push(formatLine('1994', line));
-			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1994'); } else { pie_data[line.split('\t')[5]].push('1994'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data[JYUTPING]) == "undefined") { pie_data[JYUTPING] = []; pie_data[JYUTPING].push('1994'); } else { pie_data[JYUTPING].push('1994'); };
 		}
 	const results1997 = d1997[val];
 	if (results1997 && selval.indexOf('1997') != '-1')
 		for (const line of results1997) {
 			res.push(formatLine('1997', line));
-			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1997'); } else { pie_data[line.split('\t')[5]].push('1997'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data[JYUTPING]) == "undefined") { pie_data[JYUTPING] = []; pie_data[JYUTPING].push('1997'); } else { pie_data[JYUTPING].push('1997'); };
 		}
 	const results1998 = d1998[val];
 	if (results1998 && selval.indexOf('1998') != '-1')
 		for (const line of results1998) {
 			res.push(formatLine('1998', line));
-			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('1998'); } else { pie_data[line.split('\t')[5]].push('1998'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data[JYUTPING]) == "undefined") { pie_data[JYUTPING] = []; pie_data[JYUTPING].push('1998'); } else { pie_data[JYUTPING].push('1998'); };
 		}
 	const results2002 = d2002[val];
 	if (results2002 && selval.indexOf('2002') != '-1')
 		for (const line of results2002) {
 			res.push(formatLine('2002', line));
-			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('2002'); } else { pie_data[line.split('\t')[5]].push('2002'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data[JYUTPING]) == "undefined") { pie_data[JYUTPING] = []; pie_data[JYUTPING].push('2002'); } else { pie_data[JYUTPING].push('2002'); };
 		}
 	const results2008 = d2008[val];
 	if (results2008 && selval.indexOf('2008') != '-1')
 		for (const line of results2008) {
 			res.push(formatLine('2008', line));
-			if (typeof(pie_data[line.split('\t')[5]]) == "undefined") { pie_data[line.split('\t')[5]] = []; pie_data[line.split('\t')[5]].push('2008'); } else { pie_data[line.split('\t')[5]].push('2008'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data[JYUTPING]) == "undefined") { pie_data[JYUTPING] = []; pie_data[JYUTPING].push('2008'); } else { pie_data[JYUTPING].push('2008'); };
 		}
 	outputArea.innerHTML = res.join('\n');
 	
@@ -151,7 +156,8 @@ const res2 = [`<span>南寧平話</span><span>
 	if (results1998p && selval.indexOf('1998p') != '-1')
 		for (const line of results1998p) {
 			res2.push(formatLine('1998', line));
-			if (typeof(pie_data2[line.split('\t')[5]]) == "undefined") { pie_data2[line.split('\t')[5]] = []; pie_data2[line.split('\t')[5]].push('2008'); } else { pie_data2[line.split('\t')[5]].push('2008'); };
+			var JYUTPING = line.split('\t')[5];
+			if (typeof(pie_data2[JYUTPING]) == "undefined") { pie_data2[JYUTPING] = []; pie_data2[JYUTPING].push('2008'); } else { pie_data2[JYUTPING].push('2008'); };
 		}
 	outputArea2.innerHTML = res2.join('\n');
 	pieDiv(pie_data,'container', val);
@@ -172,8 +178,8 @@ function handleSubmit(val, queryType) {
 
 function pieDiv(pie_data, div_id, val){
 	var show_data = [];
-	for( var i in pie_data ){ pie_data[i] = new Set(pie_data[i]) };
-	for( var i in pie_data ){ show_data.push({name: i, y: pie_data[i].size,x: Array.from(pie_data[i]).toString()}) };
+	for( var i in pie_data ){ pie_data[i] = new Set(pie_data[i]) }; //去重
+	for( var i in pie_data ){ show_data.push({name: i, y: pie_data[i].size,x: Array.from(pie_data[i]).toString()}) }; //name 數據名 y 數據值 x 附帶值
 	
 	var chart = {
 	   plotBackgroundColor: null,
@@ -184,7 +190,7 @@ function pieDiv(pie_data, div_id, val){
 	  text: div_id == 'container' ? '南寧白話' + '【' + val + '】' : '南寧平話' + '【' + val + '】'
 	};      
 	var tooltip = {
-	  headerFormat: '{series.name}<br/>',
+	  headerFormat: '{series.name}'+'('+'{point.y}'+')'+'<br/>',
 	  pointFormat: '<b>{point.x}</b>'
 	};
 	var plotOptions = {
@@ -193,12 +199,9 @@ function pieDiv(pie_data, div_id, val){
 		 cursor: 'pointer',
 		 dataLabels: {
 			enabled: true,
-			//format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			format: '<b>{point.name}</b><br/><span style="color: {point.color}">資料數：{point.y}</span><br/><span style="color: {point.color}">佔比：{point.percentage:.1f} %</span>',
 			style: {
 			   color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-			},
-			formatter: function() {
-				return this.key + '<br/><span style="color: ' + this.point.color + '"> 資料數：' + this.y + '，佔比：' + this.percentage + '%</span>';
 			}
 		 },
 		 showInLegend: true
