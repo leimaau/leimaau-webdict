@@ -28,11 +28,6 @@ a {
 	text-overflow: ellipsis;
 }
 
-.out-div, .out-div2 {
-	overflow-x: auto;
-	overflow-y: auto;
-}
-
 .sel-data {
 	margin-bottom: 20px;
 }
