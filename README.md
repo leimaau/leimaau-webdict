@@ -1,4 +1,4 @@
-# leimaau-webdict
+# Leimaau's Webdict 1.0
 
 [Leimaau's Webdict 1.0](https://leimaau.github.io/leimaau-webdict/)
 
